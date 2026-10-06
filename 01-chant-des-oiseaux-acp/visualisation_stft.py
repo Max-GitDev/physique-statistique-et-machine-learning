@@ -203,3 +203,25 @@ plt.suptitle("Spectrogrammes des 4 oiseaux — $N_s = 2^{10}$", fontsize=13)
 plt.tight_layout()
 plt.savefig(FIG / "spectrogrammes_4_oiseaux.png", dpi=150)
 plt.close()
+
+# QUESTION 6 (suite) — Fréquence dominante et part d'énergie au-dessus de 3 kHz
+
+# Statistiques calculées sur la fenêtre temporelle affichée, à partir de l'énergie |S|^2,
+# dans la bande [100 Hz, 10 kHz] (on écarte le bruit de fond très basse fréquence).
+
+def statistiques_spectrales(sig, fs, tmin, tmax, f_bas=100, f_haut=10000, f_seuil=3000):
+    """Renvoie (fréquence dominante en Hz, part de l'énergie au-dessus de f_seuil en %)."""
+    S_, t_, f_ = stft(sig, fs, N_s)
+    tm_ = (t_ >= tmin) & (t_ <= tmax)
+    fm_ = (f_ >= f_bas) & (f_ <= f_haut)
+    energie = (np.abs(S_[fm_, :][:, tm_]) ** 2).mean(axis=1)   # spectre d'énergie moyen
+    f_bande = f_[fm_]
+    f_dom = f_bande[np.argmax(energie)]
+    part_haute = 100 * energie[f_bande > f_seuil].sum() / energie.sum()
+    return f_dom, part_haute
+
+print("\nFréquence dominante et part d'énergie au-dessus de 3 kHz :")
+for title, sig, fs, tmin, tmax in birds:
+    f_dom, part = statistiques_spectrales(sig, fs, tmin, tmax)
+    nom = title.split("\n")[0]
+    print(f"  {nom:22s}: f_dom = {f_dom:6.0f} Hz, énergie > 3 kHz = {part:5.1f} %")

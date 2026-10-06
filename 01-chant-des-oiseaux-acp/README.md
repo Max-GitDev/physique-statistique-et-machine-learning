@@ -10,7 +10,7 @@ On découpe le signal en segments de N_s échantillons qui se recouvrent à 50 %
 
 - **Compromis temps-fréquence :** une fenêtre courte (N_s = 64) localise bien les cris dans le temps mais étale les fréquences ; une fenêtre longue (N_s = 4096) fait l'inverse. N_s = 1024 est un bon compromis pour ces signaux.
 - **Validation :** le spectrogramme obtenu a la même structure que celui de `scipy.signal.stft`.
-- **Signatures par espèce :** le grand-duc a un spectre grave, avec des harmoniques en arc autour de 2 kHz ; le rossignol émet des motifs brefs et modulés entre 2 et 6 kHz.
+- **Signatures par espèce :** le grand-duc a un spectre grave (fréquence dominante de 2 062 Hz, 1,9 % de l'énergie au-dessus de 3 kHz) ; le rossignol est le plus aigu (4 479 Hz, 95,1 % de l'énergie au-dessus de 3 kHz).
 
 <p align="center"><img src="figures/spectrogrammes_4_oiseaux.png" width="85%" alt="Spectrogrammes de quatre espèces"></p>
 
@@ -29,7 +29,7 @@ Les étiquettes des 27 autres enregistrements ne sont pas connues, donc on ne pe
   <img src="figures/spectres_moyens.png" width="48%" alt="Spectres moyens par espèce">
 </p>
 
-**Interprétation :** PC1 oppose les graves aux médiums-aigus et isole le rouge-gorge. PC2 sépare la corneille du merle noir.
+**Interprétation :** PC1 oppose la bande 1-2,7 kHz à la bande 3-4,5 kHz et isole le rouge-gorge, dont le spectre culmine vers 3 750 Hz. PC2 sépare la corneille (pic vers 1 800 Hz) du merle noir (pic vers 2 350 Hz).
 
 ## Fichiers
 
@@ -38,6 +38,7 @@ Les étiquettes des 27 autres enregistrements ne sont pas connues, donc on ne pe
 | `visualisation_stft.py` | Partie 1 : STFT, effet de N_s, comparaison avec SciPy, spectrogrammes |
 | `identification_acp.py` | Partie 2 : descripteurs, ACP par SVD, identification des espèces |
 | `figures/` | Figures générées par les scripts |
+| `rapport/` | Rapport du projet (PDF, rédigé en LaTeX) |
 
 ## Données
 
