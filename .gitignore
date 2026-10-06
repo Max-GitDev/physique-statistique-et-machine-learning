@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+# enregistrements audio fournis avec l enonce, non redistribues
+data/
+*.wav
